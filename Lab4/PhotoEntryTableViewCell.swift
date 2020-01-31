@@ -10,4 +10,7 @@ import UIKit
 
 class PhotoEntryTableViewCell : UITableViewCell {
     
+    
+    @IBOutlet weak var notesView: UILabel!
+    @IBOutlet weak var photoView: UIImageView!
 }
