@@ -10,31 +10,17 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
-
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
-        }
-    }
-
+    // MARK - Properties
+    @IBOutlet weak var notesView: UITextView!
+    @IBOutlet weak var photoView: UIImageView!
+    var entry: PhotoEntry?
+    
+    //Mark - Delegate Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        configureView()
+        photoView.image = entry?.photo
+        notesView.text = entry?.notes
     }
-
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
-
 
 }
 
