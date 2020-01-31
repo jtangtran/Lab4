@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os
 
 class MasterViewController: UITableViewController {
 
@@ -85,7 +86,27 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
+    
+    //Mark: Load/Save
+    func loadObjects() -> [PhotoEntry]? {
+        do {
+            let data = try Data(contentsOf: PhotoEntry.archiveURL)
+            return try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [PhotoEntry]
+        } catch {
+            os_log("Cannot load due to %@", log: OSLog.default, type: .debug, error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func saveObjects() {
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: objects, requiringSecureCoding: false)
+            try data.write(to: PhotoEntry.archiveURL)
+            
+        } catch {
+            os_log("Cannot save due to %@", log: OSLog.default, type: .debug, error.localizedDescription)
+        }
+    }
 
 }
 
