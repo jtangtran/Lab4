@@ -16,6 +16,8 @@
 		804EB19623E48D21001A947E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 804EB19423E48D21001A947E /* LaunchScreen.storyboard */; };
 		804EB1A123E48D21001A947E /* Lab4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804EB1A023E48D21001A947E /* Lab4Tests.swift */; };
 		804EB1AC23E48D21001A947E /* Lab4UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804EB1AB23E48D21001A947E /* Lab4UITests.swift */; };
+		804EB1BA23E48FF7001A947E /* PhotoEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804EB1B923E48FF7001A947E /* PhotoEntry.swift */; };
+		804F6A3923E49A24009E0D15 /* PhotoEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804F6A3823E49A24009E0D15 /* PhotoEntryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		804EB1A723E48D21001A947E /* Lab4UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lab4UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		804EB1AB23E48D21001A947E /* Lab4UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lab4UITests.swift; sourceTree = "<group>"; };
 		804EB1AD23E48D21001A947E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		804EB1B923E48FF7001A947E /* PhotoEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntry.swift; sourceTree = "<group>"; };
+		804F6A3823E49A24009E0D15 /* PhotoEntryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoEntryTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +105,11 @@
 		804EB18623E48D1F001A947E /* Lab4 */ = {
 			isa = PBXGroup;
 			children = (
+				804EB1B923E48FF7001A947E /* PhotoEntry.swift */,
 				804EB18723E48D1F001A947E /* AppDelegate.swift */,
 				804EB18923E48D1F001A947E /* SceneDelegate.swift */,
 				804EB18B23E48D1F001A947E /* MasterViewController.swift */,
+				804F6A3823E49A24009E0D15 /* PhotoEntryTableViewCell.swift */,
 				804EB18D23E48D1F001A947E /* DetailViewController.swift */,
 				804EB18F23E48D1F001A947E /* Main.storyboard */,
 				804EB19223E48D21001A947E /* Assets.xcassets */,
@@ -265,7 +271,9 @@
 				804EB18823E48D1F001A947E /* AppDelegate.swift in Sources */,
 				804EB18A23E48D1F001A947E /* SceneDelegate.swift in Sources */,
 				804EB18C23E48D1F001A947E /* MasterViewController.swift in Sources */,
+				804EB1BA23E48FF7001A947E /* PhotoEntry.swift in Sources */,
 				804EB18E23E48D1F001A947E /* DetailViewController.swift in Sources */,
+				804F6A3923E49A24009E0D15 /* PhotoEntryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

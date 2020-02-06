@@ -8,33 +8,25 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
-
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
-
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.description
-            }
-        }
-    }
-
+class DetailViewController: UIViewController, UITextViewDelegate {
+    
+    // MARK - Properties
+    @IBOutlet weak var notesView: UITextView!
+    @IBOutlet weak var photoView: UIImageView!
+    var entry: PhotoEntry?
+    
+    //Mark - Delegate Functions
+    //called when a view has been fully loaded into memory with all outlets initialized
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        configureView()
+        photoView.image = entry?.photo
+        notesView.text = entry?.notes
+        //tying the UITextViewDelegate to the DetailViewController
+        notesView.delegate = self
     }
-
-    var detailItem: NSDate? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
+    //function is invoked everytime the text is changed
+    func textViewDidChange(_ textView: UITextView) {
+        entry?.notes = textView.text
     }
-
-
 }
 
