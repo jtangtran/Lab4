@@ -64,6 +64,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UISplitViewControllerDe
         }
         return false
     }
+    //dhjadhajk
 
 }
 
