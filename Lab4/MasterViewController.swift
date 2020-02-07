@@ -26,6 +26,7 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        tableView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,9 +47,7 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                
                 let object = objects[indexPath.row]
-                
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.entry = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
@@ -59,6 +58,7 @@ class MasterViewController: UITableViewController {
         }
         if (detailViewController!.changed) {
             saveObjects()
+            //tableView.reloadData()
         }
         tableView.reloadData()
     }
@@ -74,11 +74,13 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PhotoEntryTableViewCell
         let object = objects[indexPath.row]
         cell.photoView.image = object.photo
         cell.notesView.text = object.notes
         saveObjects()
+        
         return cell
     }
 
