@@ -14,6 +14,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var notesView: UITextView!
     @IBOutlet weak var photoView: UIImageView!
     var entry: PhotoEntry?
+    var changed : Bool = false
     
     //Mark - Delegate Functions
     //called when a view has been fully loaded into memory with all outlets initialized
@@ -27,6 +28,7 @@ class DetailViewController: UIViewController, UITextViewDelegate {
     //function is invoked everytime the text is changed
     func textViewDidChange(_ textView: UITextView) {
         entry?.notes = textView.text
+        changed = true
     }
 }
 
