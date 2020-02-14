@@ -16,17 +16,16 @@ class MasterViewController: UITableViewController {
 
     //called only when a view has been loaded from memory with all IBOutlets initialized
     override func viewDidLoad() {
+        objects = loadObjects()!
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
-        objects = loadObjects()!
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
         navigationItem.rightBarButtonItem = addButton
         if let split = splitViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
-        tableView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -36,31 +35,33 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Any) {
-        objects.insert(PhotoEntry(photo: UIImage(named: "defaultImage")!, notes: "My notes"), at: 0)
+        objects.insert(PhotoEntry(photo: UIImage(named: "defaultImage")!, notes: "My Notes"), at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         saveObjects()
+        tableView.reloadData()
     }
 
     // MARK: - Segues
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
+                tableView.reloadData()
+                if (detailViewController!.changed == true) {
+                    saveObjects()
+                }
                 let object = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.entry = object
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller
+                
             }
             
         }
-        if (detailViewController!.changed) {
-            saveObjects()
-            //tableView.reloadData()
-        }
-        tableView.reloadData()
+        
+       
     }
 
     // MARK: - Table View
@@ -74,18 +75,14 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PhotoEntryTableViewCell
         let object = objects[indexPath.row]
         cell.photoView.image = object.photo
         cell.notesView.text = object.notes
-        saveObjects()
-        
         return cell
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        //saveObjects()
         // Return false if you do not want the specified item to be editable.
         return true
     }
