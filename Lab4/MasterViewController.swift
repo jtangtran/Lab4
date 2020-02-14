@@ -47,7 +47,7 @@ class MasterViewController: UITableViewController {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 tableView.reloadData()
-                if (detailViewController!.changed == true) {
+                if (detailViewController?.changed ?? false) {
                     saveObjects()
                 }
                 let object = objects[indexPath.row]
@@ -56,12 +56,8 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller
-                
             }
-            
         }
-        
-       
     }
 
     // MARK: - Table View
