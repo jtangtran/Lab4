@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Photos
 
 class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -16,24 +17,34 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var camButton: UIBarButtonItem!
+    @IBOutlet weak var date: UIDatePicker!
     
     //class variables
     var entry: PhotoEntry?
     var notesDidChange : Bool = false
     let OFFSET : CGFloat = 10
-    var photoDidChange : Bool = true
+    var photoDidChange : Bool = false
+    var dateDidChange : Bool = false
+    
     
     //MARTK - Delegate Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         photoView.image = entry?.photo
         notesView.text = entry?.notes
+        date.setDate(_: entry?.date.date ?? UIDatePicker().date, animated: false)
         //tying the UITextViewDelegate to the DetailViewController
         notesView.delegate = self
+        date.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardAppeared), name: UIWindow.keyboardDidShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisappeared), name: UIWindow.keyboardDidHideNotification, object: nil)
         if (photoView.image == nil) {
             camButton.isEnabled = false
+            date.isHidden = true
+        }
+        else {
+            camButton.isEnabled = true
+            date.isHidden = false
         }
     }
 
@@ -103,6 +114,24 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
+        PHPhotoLibrary.requestAuthorization({status in
+            if status == .authorized {
+                DispatchQueue.main.async {
+                    let imagePickerController = UIImagePickerController()
+                    imagePickerController.sourceType = .photoLibrary
+                    imagePickerController.delegate = self
+                    self.present(imagePickerController, animated: true, completion: nil)
+                }
+            }
+        })
+    }
+    
+    @objc func dateChanged(_ sender: UIDatePicker) {
+        entry?.date = date
+        dateDidChange = true
     }
 }
 

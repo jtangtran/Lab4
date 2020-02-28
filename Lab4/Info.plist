@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo library access is needed to add photos to the app</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera Access is Needed To Add Photos to the App</string>
 	<key>CFBundleDevelopmentRegion</key>

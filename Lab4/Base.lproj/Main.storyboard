@@ -37,11 +37,18 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="EHq-6V-IIX">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mmo-6G-yQf">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="496"/>
+                                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mmo-6G-yQf">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="328"/>
+                                                <gestureRecognizers/>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="mnv-k2-NQm" appends="YES" id="oay-NR-1rl"/>
+                                                </connections>
                                             </imageView>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="eSH-Op-0x8">
+                                                <rect key="frame" x="0.0" y="336" width="414" height="328"/>
+                                            </datePicker>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Yyc-95-ByP">
-                                                <rect key="frame" x="0.0" y="504" width="414" height="496"/>
+                                                <rect key="frame" x="0.0" y="672" width="414" height="328"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -83,12 +90,18 @@
                     </navigationItem>
                     <connections>
                         <outlet property="camButton" destination="fXW-h7-g5q" id="BTM-co-uBR"/>
+                        <outlet property="date" destination="eSH-Op-0x8" id="TKk-5E-a43"/>
                         <outlet property="notesView" destination="Yyc-95-ByP" id="pdw-ke-CSB"/>
                         <outlet property="photoView" destination="mmo-6G-yQf" id="yCh-eS-WmT"/>
                         <outlet property="scrollView" destination="Zgw-uK-bE0" id="YoG-je-ehK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="mnv-k2-NQm">
+                    <connections>
+                        <action selector="selectImageFromPhotoLibrary:" destination="JEX-9P-axG" id="xuQ-SL-eDl"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="708.69565217391312" y="128.57142857142856"/>
         </scene>
@@ -183,6 +196,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>

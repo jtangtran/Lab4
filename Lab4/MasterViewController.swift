@@ -40,7 +40,7 @@ class MasterViewController: UITableViewController {
     //NOTES: exceptions are not caught
     @objc
     func insertNewObject(_ sender: Any) {
-        objects.insert(PhotoEntry(photo: UIImage(named: "defaultImage")!, notes: "My Notes"), at: 0)
+        objects.insert(PhotoEntry(photo: UIImage(named: "defaultImage")!, notes: "My Notes", date: UIDatePicker()), at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
         saveObjects()
@@ -51,7 +51,7 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                if (detailViewController?.photoDidChange ?? false || detailViewController?.notesDidChange ?? false ) {
+                if (detailViewController?.photoDidChange ?? false || detailViewController?.notesDidChange ?? false || detailViewController?.dateDidChange ?? false) {
                     saveObjects()
                     tableView.reloadData()
                 }
@@ -71,6 +71,13 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //checks if the tableView has nothing
+        if (objects.count == 0) {
+            detailViewController?.photoView.image = nil
+            detailViewController?.notesView.text = nil
+            detailViewController?.camButton.isEnabled = false
+            detailViewController?.date.isHidden = true
+        }
         return objects.count
     }
 
@@ -94,6 +101,7 @@ class MasterViewController: UITableViewController {
             detailViewController?.photoView.image = nil
             detailViewController?.notesView.text = nil
             detailViewController?.camButton.isEnabled = false
+            detailViewController?.date.isHidden = true
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
