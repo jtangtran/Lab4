@@ -10,7 +10,7 @@ import UIKit
 
 class PhotoEntryTableViewCell : UITableViewCell {
     
-    
+    // MARK - Properties
     @IBOutlet weak var notesView: UILabel!
     @IBOutlet weak var photoView: UIImageView!
     

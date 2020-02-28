@@ -74,8 +74,15 @@
                         <viewLayoutGuide key="safeArea" id="VUw-jc-0yf"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="fXW-h7-g5q">
+                            <connections>
+                                <action selector="takePhoto:" destination="JEX-9P-axG" id="htI-8O-L87"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="camButton" destination="fXW-h7-g5q" id="BTM-co-uBR"/>
                         <outlet property="notesView" destination="Yyc-95-ByP" id="pdw-ke-CSB"/>
                         <outlet property="photoView" destination="mmo-6G-yQf" id="yCh-eS-WmT"/>
                         <outlet property="scrollView" destination="Zgw-uK-bE0" id="YoG-je-ehK"/>

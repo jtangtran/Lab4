@@ -10,14 +10,15 @@ import UIKit
 import os
 
 class MasterViewController: UITableViewController {
-
+    //CLASS VARIABLES
     var detailViewController: DetailViewController? = nil
     var objects = [PhotoEntry]()
 
-    //called only when a view has been loaded from memory with all IBOutlets initialized
     override func viewDidLoad() {
-        objects = loadObjects()!
         super.viewDidLoad()
+        if (loadObjects() != nil) {
+            objects = loadObjects()!
+        }
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
@@ -32,7 +33,11 @@ class MasterViewController: UITableViewController {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
-
+    
+    //PURPOSE: inserts a new object to the top of the view once it has been created it will be saved and reloaded
+    //PARAMETERS: sender -> object that initiated the insertion of a new object
+    //RETURN/SIDE EFFECTS: N/A
+    //NOTES: exceptions are not caught
     @objc
     func insertNewObject(_ sender: Any) {
         objects.insert(PhotoEntry(photo: UIImage(named: "defaultImage")!, notes: "My Notes"), at: 0)
@@ -46,9 +51,9 @@ class MasterViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-                tableView.reloadData()
-                if (detailViewController?.changed ?? false) {
+                if (detailViewController?.photoDidChange ?? false || detailViewController?.notesDidChange ?? false ) {
                     saveObjects()
+                    tableView.reloadData()
                 }
                 let object = objects[indexPath.row]
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
@@ -61,7 +66,6 @@ class MasterViewController: UITableViewController {
     }
 
     // MARK: - Table View
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -87,13 +91,21 @@ class MasterViewController: UITableViewController {
         if editingStyle == .delete {
             objects.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            detailViewController?.photoView.image = nil
+            detailViewController?.notesView.text = nil
+            detailViewController?.camButton.isEnabled = false
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
         saveObjects()
+        tableView.reloadData()
     }
     
     //Mark: Load/Save
+    //PURPOSE: Stores the object in the objects of type PhotoEntry variable after the Master view has been loaded and returns the object variable
+    //PARAMETERS: [PhotoEntry]?: An optional array of PhotoEntry in the application
+    //RETURN/SIDE EFFECTS: returns the objects variable which is in an array of type PhotoEntry if valid request
+    //NOTES: Exceptions will be caught and logged, and result in the orderly termination of this function
     func loadObjects() -> [PhotoEntry]? {
         do {
             let data = try Data(contentsOf: PhotoEntry.archiveURL)
@@ -108,6 +120,10 @@ class MasterViewController: UITableViewController {
         }
     }
     
+    //PURPOSE: Objects are saved and written to the objects variable of type PhotoEntry
+    //PARAMETERS: N/A
+    //RETURN/SIDE EFFECTS: N/A
+    //NOTES: Exceptions will be caught and logged, and result in the orderly termination of this function
     func saveObjects() {
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: objects, requiringSecureCoding: false)

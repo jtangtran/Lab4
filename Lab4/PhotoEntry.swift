@@ -17,11 +17,18 @@ class PropertyKey {
 class PhotoEntry: NSObject, NSCoding {
     static let documentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let archiveURL = documentsDirectory.appendingPathComponent("entries")
+    
     //MARK: - Properties
+    //class variables
     var photo: UIImage
     var notes: String
     
     //MARK - Initializers
+    
+    //PURPOSE: initialize all the class variables
+    //PARAMETERS: valid photo -> UIImage, valid notes -> String
+    //RETURN/SIDE EFFECTS: N/A
+    //NOTES: Exceptions are not caught
     init(photo: UIImage, notes: String) {
         self.photo = photo
         self.notes = notes
@@ -39,6 +46,7 @@ class PhotoEntry: NSObject, NSCoding {
         self.init(photo: newPhoto, notes: newNotes)
         
     }
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(photo, forKey: PropertyKey.photo)
         aCoder.encode(notes, forKey: PropertyKey.notes)
