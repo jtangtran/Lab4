@@ -27,7 +27,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
     var dateDidChange : Bool = false
     
     
-    //MARTK - Delegate Functions
+    //MARK - Delegate Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         photoView.image = entry?.photo
@@ -53,12 +53,16 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
         notesDidChange = true
     }
     
+    //PURPOSE: checks if the current picture from the application was changed by the user, if it was changed it would set the PhotoEntry picture to the changed picture and set a flag to the save the current picture 
+    //PARAMETERS: photoView -> valid photo
+    //RETURN/SIDE EFFECTS: N/A
+    //NOTES: Exceptions are not caught
    func photoViewDidChange(_ photoView: UIImageView) {
         entry?.photo = photoView.image!
         photoDidChange = true
    }
     
-    //PURPOSE: displays the keyboard upon a notification event
+    //PURPOSE: displays the keyboard and sets the scrollview at the bottom to be the size of the frame + a constant offset and then sets the vertical scroll indicator to be the size of the frame + the offset
     //PARAMETERS: valid notification
     //RETURN/SIDE EFFECTS: N/A
     //NOTES: Exceptions are not caught
@@ -72,7 +76,7 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
         scrollView.verticalScrollIndicatorInsets.bottom = frame.size.height + OFFSET
     }
     
-    //PURPOSE: hides the keyboard upon a notification event
+    //PURPOSE: hides the keyboard and sets the scrollView at the bottom to 0 and the scroll views vertical scroll indicator at the bottom to be 0
     //PARAMETERS: valid notification
     //RETURN/SIDE EFFECTS: N/A
     //NOTES: Exceptions are not caught
@@ -82,6 +86,10 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
         scrollView.verticalScrollIndicatorInsets.bottom = 0
     }
     
+    //PURPOSE: upon the camera button press, the application will first check if the user has a camera to the device running the application and if so the application will prompt the user to access its camera (if its the user's first time pressing the camera button) then takes a picture with the devices camera.
+    //PARAMETERS: sender -> valid action
+    //RETURN/SIDE EFFECTS: N/A
+    //NOTES: Exceptions are not caught
     @IBAction func takePhoto(_ sender: Any) {
         //check if the device has a camera
         if !UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
@@ -116,6 +124,10 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
         picker.dismiss(animated: true, completion: nil)
     }
     
+    //PURPOSE: upon a double tap gesture on the photo of the component, the system will either notify the user to access the gallery (if its the first time) or change the standard photo to a photo from the user's device's gallery
+    //PARAMETERS: sender -> valid action (double tapping) in the application
+    //RETURN/SIDE EFFECTS: If it is the first time double tapping the image, the application will prompt the user to allow the user to access their gallery in their device
+    //NOTES: Exceptions are not caught
     @IBAction func selectImageFromPhotoLibrary(_ sender: UITapGestureRecognizer) {
         PHPhotoLibrary.requestAuthorization({status in
             if status == .authorized {
@@ -129,6 +141,10 @@ class DetailViewController: UIViewController, UITextViewDelegate, UIImagePickerC
         })
     }
     
+    //PURPOSE: assigns PhotoEntry date to whatever the user assigned date to be in the application and then checks if the date component in the application changed in the detail view component has changed from the original date that was set
+    //PARAMETERS: sender -> valid action
+    //RETURN/SIDE EFFECTS: N/A
+    //NOTES: Exceptions are not caught
     @objc func dateChanged(_ sender: UIDatePicker) {
         entry?.date = date
         dateDidChange = true

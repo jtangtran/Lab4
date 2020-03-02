@@ -10,6 +10,7 @@ import UIKit
 import os
 
 class PropertyKey {
+    //
     static let photo = "photo"
     static let notes = "notes"
     static let date = "date"
@@ -26,7 +27,6 @@ class PhotoEntry: NSObject, NSCoding {
     var date : UIDatePicker
     
     //MARK - Initializers
-    
     //PURPOSE: initialize all the class variables
     //PARAMETERS: valid photo -> UIImage, valid notes -> String, valid date -> UIDatePicker
     //RETURN/SIDE EFFECTS: N/A

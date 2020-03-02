@@ -34,7 +34,7 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
     
-    //PURPOSE: inserts a new object to the top of the view once it has been created it will be saved and reloaded
+    //PURPOSE: inserts a new object to the top of the view once it has been added it will be saved and reloaded
     //PARAMETERS: sender -> object that initiated the insertion of a new object
     //RETURN/SIDE EFFECTS: N/A
     //NOTES: exceptions are not caught
